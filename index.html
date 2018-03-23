@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="src/css/style.css" type="text/css">-->
+
+<script>
+ window.onload = function() {
+ document.getElementById("Save").onclick = function fun() {
+ var x = document.forms["myForm"]["ip_address"].value;
+ var Url = "http://api.ipinfodb.com/v3/ip-city/?key=3b9833f2ba7c02985eb1b6052ebb0992d1bd9f2c983ed737aa73b82f06dae436&format=json&ip=" +x;
+ var xhr = new XMLHttpRequest();
+ xhr.open('GET', Url, true);
+ xhr.send();
+ xhr.onreadystatechange = processRequest;
+ function processRequest(e) {
+ if (xhr.readyState == 4 && xhr.status == 200) {
+ // alert(xhr.responseText);
+ var response1 = JSON.parse(xhr.responseText);
+ document.getElementById("statusCode").innerHTML = response1.name + ", " + response1.statusCode;
+ document.getElementById("statusCode").innerHTML = response1.statusCode;
+ document.getElementById("statusMessage").innerHTML = response1.statusMessage;
+ document.getElementById("ipAddress").innerHTML = response1.ipAddress;
+ document.getElementById("countryCode").innerHTML = response1.countryCode;
+ document.getElementById("countryName").innerHTML = response1.countryName;
+ document.getElementById("regionName").innerHTML = response1.regionName;
+ document.getElementById("cityName").innerHTML = response1.cityName;
+ document.getElementById("zipCode").innerHTML = response1.zipCode;
+ document.getElementById("latitude").innerHTML = response1.latitude;
+ document.getElementById("longitude").innerHTML = response1.longitude;
+ document.getElementById("timeZone").innerHTML = response1.timeZone;
+ }
+ }
+ }
+ }
+</script>
+</head>
+<body class="bg-dark text-white text-center py-4">
+<div style="margin: 10px auto" class="mt-5">
+ <h1>Get IP information</h1>
+ <p>Used IPInfoDB for information retrieval</p>
+ <br> <br>
+ <form name="myForm">
+ <input type="text" name="ip_address" class="form-control my-3" style="width:50%; margin:0px auto;"/>
+ <input type="button" id="Save" onclick="f1()" value="test" class="btn btn-primary btn-lg"/>
+</form> 
+    </div>   
+   
+ <br> <br>
+ <table class="table table-dark table-bordered table-hover" style="margin: 10px auto; width: 50%">
+ <tr><td>statusCode :</td><td id="statusCode"></td></tr>
+ <tr><td>statusMessage :</td><td id="statusMessage"></td></tr>
+ <tr><td>ipAddress :</td><td id="ipAddress"></td></tr>
+ <tr><td>countryCode :</td><td id="countryCode"></td></tr>
+ <tr><td>countryName :</td><td id="countryName"></td></tr>
+ <tr><td>regionName :</td><td id="regionName"></td></tr>
+ <tr><td>cityName :</td><td id="cityName"></td></tr>
+ <tr><td>zipCode :</td><td id="zipCode"></td></tr>
+ <tr><td>latitude :</td><td id="latitude"></td></tr>
+ <tr><td>longitude :</td><td id="longitude"></td></tr>
+ <tr><td>timeZone :</td><td id="timeZone"></td></tr> 
+ </table>
+</body>
+</html>
